@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		40A3963F1C4206AC001F5037 /* YNRefreshFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A3963E1C4206AC001F5037 /* YNRefreshFooterView.swift */; };
 		40B0FA581C3F534C002C8AA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B0FA571C3F534C002C8AA2 /* AppDelegate.swift */; };
 		40B0FA5A1C3F534C002C8AA2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B0FA591C3F534C002C8AA2 /* ViewController.swift */; };
 		40B0FA5D1C3F534C002C8AA2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40B0FA5B1C3F534C002C8AA2 /* Main.storyboard */; };
@@ -14,6 +15,9 @@
 		40B0FA621C3F534C002C8AA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40B0FA601C3F534C002C8AA2 /* LaunchScreen.storyboard */; };
 		40B0FA6D1C3F534C002C8AA2 /* SwiftRefreshTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B0FA6C1C3F534C002C8AA2 /* SwiftRefreshTests.swift */; };
 		40B0FA781C3F534C002C8AA2 /* SwiftRefreshUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B0FA771C3F534C002C8AA2 /* SwiftRefreshUITests.swift */; };
+		40B0FA871C3F56A3002C8AA2 /* YNCycleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B0FA861C3F56A3002C8AA2 /* YNCycleLayer.swift */; };
+		40B0FA891C3F600F002C8AA2 /* YNRefreshHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B0FA881C3F600F002C8AA2 /* YNRefreshHeaderView.swift */; };
+		40B0FA8B1C3F7B60002C8AA2 /* UIScrollView+CYNRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B0FA8A1C3F7B60002C8AA2 /* UIScrollView+CYNRefresh.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		40A3963E1C4206AC001F5037 /* YNRefreshFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNRefreshFooterView.swift; sourceTree = "<group>"; };
 		40B0FA541C3F534C002C8AA2 /* SwiftRefresh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftRefresh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40B0FA571C3F534C002C8AA2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40B0FA591C3F534C002C8AA2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +52,9 @@
 		40B0FA731C3F534C002C8AA2 /* SwiftRefreshUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftRefreshUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40B0FA771C3F534C002C8AA2 /* SwiftRefreshUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftRefreshUITests.swift; sourceTree = "<group>"; };
 		40B0FA791C3F534C002C8AA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		40B0FA861C3F56A3002C8AA2 /* YNCycleLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNCycleLayer.swift; sourceTree = "<group>"; };
+		40B0FA881C3F600F002C8AA2 /* YNRefreshHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNRefreshHeaderView.swift; sourceTree = "<group>"; };
+		40B0FA8A1C3F7B60002C8AA2 /* UIScrollView+CYNRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+CYNRefresh.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +105,7 @@
 		40B0FA561C3F534C002C8AA2 /* SwiftRefresh */ = {
 			isa = PBXGroup;
 			children = (
+				40B0FA851C3F5656002C8AA2 /* refresh */,
 				40B0FA571C3F534C002C8AA2 /* AppDelegate.swift */,
 				40B0FA591C3F534C002C8AA2 /* ViewController.swift */,
 				40B0FA5B1C3F534C002C8AA2 /* Main.storyboard */,
@@ -123,6 +132,17 @@
 				40B0FA791C3F534C002C8AA2 /* Info.plist */,
 			);
 			path = SwiftRefreshUITests;
+			sourceTree = "<group>";
+		};
+		40B0FA851C3F5656002C8AA2 /* refresh */ = {
+			isa = PBXGroup;
+			children = (
+				40B0FA861C3F56A3002C8AA2 /* YNCycleLayer.swift */,
+				40B0FA881C3F600F002C8AA2 /* YNRefreshHeaderView.swift */,
+				40B0FA8A1C3F7B60002C8AA2 /* UIScrollView+CYNRefresh.swift */,
+				40A3963E1C4206AC001F5037 /* YNRefreshFooterView.swift */,
+			);
+			path = refresh;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +213,7 @@
 				TargetAttributes = {
 					40B0FA531C3F534C002C8AA2 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = JML588N2LF;
 					};
 					40B0FA671C3F534C002C8AA2 = {
 						CreatedOnToolsVersion = 7.2;
@@ -257,6 +278,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				40B0FA5A1C3F534C002C8AA2 /* ViewController.swift in Sources */,
+				40B0FA871C3F56A3002C8AA2 /* YNCycleLayer.swift in Sources */,
+				40A3963F1C4206AC001F5037 /* YNRefreshFooterView.swift in Sources */,
+				40B0FA891C3F600F002C8AA2 /* YNRefreshHeaderView.swift in Sources */,
+				40B0FA8B1C3F7B60002C8AA2 /* UIScrollView+CYNRefresh.swift in Sources */,
 				40B0FA581C3F534C002C8AA2 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -354,6 +379,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Debug;
 		};
@@ -391,7 +417,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
+				VALIDATE_PRODUCT = NO;
 			};
 			name = Release;
 		};
@@ -399,10 +425,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: rose1914293706@outlook.com (HB3RQZQZH6)";
 				INFOPLIST_FILE = SwiftRefresh/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = sd.SwiftRefresh;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -410,10 +439,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer: rose1914293706@outlook.com (HB3RQZQZH6)";
 				INFOPLIST_FILE = SwiftRefresh/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = sd.SwiftRefresh;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -484,6 +516,7 @@
 				40B0FA7E1C3F534C002C8AA2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		40B0FA7F1C3F534C002C8AA2 /* Build configuration list for PBXNativeTarget "SwiftRefreshTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +525,7 @@
 				40B0FA811C3F534C002C8AA2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		40B0FA821C3F534C002C8AA2 /* Build configuration list for PBXNativeTarget "SwiftRefreshUITests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +534,7 @@
 				40B0FA841C3F534C002C8AA2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
