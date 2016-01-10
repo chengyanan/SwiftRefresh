@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		40A3963F1C4206AC001F5037 /* YNRefreshFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40A3963E1C4206AC001F5037 /* YNRefreshFooterView.swift */; };
+		40A396431C424DF5001F5037 /* animate.gif in Resources */ = {isa = PBXBuildFile; fileRef = 40A396421C424DF5001F5037 /* animate.gif */; };
 		40B0FA581C3F534C002C8AA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B0FA571C3F534C002C8AA2 /* AppDelegate.swift */; };
 		40B0FA5A1C3F534C002C8AA2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B0FA591C3F534C002C8AA2 /* ViewController.swift */; };
 		40B0FA5D1C3F534C002C8AA2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 40B0FA5B1C3F534C002C8AA2 /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 
 /* Begin PBXFileReference section */
 		40A3963E1C4206AC001F5037 /* YNRefreshFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNRefreshFooterView.swift; sourceTree = "<group>"; };
+		40A396421C424DF5001F5037 /* animate.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = animate.gif; sourceTree = "<group>"; };
 		40B0FA541C3F534C002C8AA2 /* SwiftRefresh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftRefresh.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		40B0FA571C3F534C002C8AA2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		40B0FA591C3F534C002C8AA2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				40B0FA5E1C3F534C002C8AA2 /* Assets.xcassets */,
 				40B0FA601C3F534C002C8AA2 /* LaunchScreen.storyboard */,
 				40B0FA631C3F534C002C8AA2 /* Info.plist */,
+				40A396421C424DF5001F5037 /* animate.gif */,
 			);
 			path = SwiftRefresh;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 			files = (
 				40B0FA621C3F534C002C8AA2 /* LaunchScreen.storyboard in Resources */,
 				40B0FA5F1C3F534C002C8AA2 /* Assets.xcassets in Resources */,
+				40A396431C424DF5001F5037 /* animate.gif in Resources */,
 				40B0FA5D1C3F534C002C8AA2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
