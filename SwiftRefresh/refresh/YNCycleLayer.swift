@@ -8,13 +8,13 @@
 
 import UIKit
 
-let kScreenWidth = UIScreen.mainScreen().bounds.size.width
-let kScreenHeight = UIScreen.mainScreen().bounds.size.height
+let kScreenWidthRefresh = UIScreen.mainScreen().bounds.size.width
+let kScreenHeightRefresh = UIScreen.mainScreen().bounds.size.height
 
 let kSelfHeight: CGFloat = 44//高度
 let kOffsetHeight: CGFloat = 22//整个view还没出来的高度
 let kRadiusOfCycle: CGFloat = kOffsetHeight*0.5//半径
-let kCycleCenterX: CGFloat = kScreenWidth*0.5//圆心X
+let kCycleCenterX: CGFloat = kScreenWidthRefresh*0.5//圆心X
 let kCycleCenterY: CGFloat = kOffsetHeight + kRadiusOfCycle//圆心Y
 
 class YNCycleLayer: CALayer {

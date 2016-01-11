@@ -54,11 +54,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
    //MARK: tableView datasource
+    
+//    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+//        
+//        return 50
+//    }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return 50
     }
 
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
+        return 60
+        
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let identify = "CELL"

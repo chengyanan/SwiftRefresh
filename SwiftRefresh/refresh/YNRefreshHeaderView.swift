@@ -44,7 +44,7 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
                     self.activityView.hidden = false
                     self.activityView.startAnimating()
                     
-                    self.refreshActionHandler!()
+//                    self.refreshActionHandler!()
 //
                     self.delegate?.refreshHeaderView(self, removerMyObserve: true)
                     break
@@ -74,7 +74,12 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
     var startAngle: CGFloat?
     
     //MARK: property UI component
-    let cycleLayer = YNCycleLayer()
+    let cycleLayer: YNCycleLayer = {
+    
+        return YNCycleLayer()
+    
+    }()
+    
     let activityView: UIActivityIndicatorView = {
     
         let tempView = UIActivityIndicatorView()
@@ -92,8 +97,6 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
         
         self.addSubview(activityView)
         activityView.startAnimating()
-    
-        cycleLayer.frame = self.bounds
         
         self.backgroundColor = UIColor.whiteColor()
         self.layer.addSublayer(self.cycleLayer)
@@ -102,6 +105,12 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
         
         
 //        self.backgroundColor = UIColor.redColor()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        cycleLayer.frame = CGRectMake(0, 0, kScreenWidthRefresh, self.bounds.height)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -113,6 +122,7 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
     
         self.state = YNPullRefreshState.Normal
         self.activityView.stopAnimating()
+        
     }
     
     //MARK: 刷新失败
@@ -146,8 +156,9 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
                 
                 }, completion: { (isfinish) -> Void in
                    
-                    
+                    self.refreshActionHandler!()
                     scrollView.delegate = self.scrollViewOriginalDelegate
+                    
             })
             
         }

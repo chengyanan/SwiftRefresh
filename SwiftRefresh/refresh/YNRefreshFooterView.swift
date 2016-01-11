@@ -118,28 +118,33 @@ class YNRefreshFooterView: UIView, UIScrollViewDelegate {
             */
             
             
-            if scrollView.contentOffset.y + scrollView.frame.size.height + 8 > scrollView.contentSize.height {
-                
-                scrollView.addSubview(self)
-                
-                self.frame = CGRectMake(0, scrollView.contentSize.height, kScreenWidth, kRefreshFooterHeight)
-
-                
-                let y = kRefreshFooterHeight/2
-                
-                self.activityView.center = CGPointMake(kCycleCenterX, y)
-                
-                UIView.animateWithDuration(0.3, animations: { () -> Void in
+            if scrollView.contentSize.height > scrollView.frame.size.height {
+            
+                if scrollView.contentOffset.y + scrollView.frame.size.height + 8 > scrollView.contentSize.height {
                     
-                    scrollView.contentInset = UIEdgeInsetsMake(0, 0, kRefreshFooterHeight, 0)
+                    scrollView.addSubview(self)
                     
-                    }, completion: { (isfinish) -> Void in
+                    self.frame = CGRectMake(0, scrollView.contentSize.height, kScreenWidthRefresh, kRefreshFooterHeight)
+                    
+                    
+                    let y = kRefreshFooterHeight/2
+                    
+                    self.activityView.center = CGPointMake(kCycleCenterX, y)
+                    
+                    UIView.animateWithDuration(0.3, animations: { () -> Void in
                         
+                        scrollView.contentInset = UIEdgeInsetsMake(0, 0, kRefreshFooterHeight, 0)
                         
-                        //开始加载
-                        self.state = .Loading
-                        
-                })
+                        }, completion: { (isfinish) -> Void in
+                            
+                            
+                            //开始加载
+                            self.state = .Loading
+                            
+                    })
+                    
+                }
+                
                 
             }
             
