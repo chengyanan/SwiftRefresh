@@ -122,7 +122,7 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
     
         self.state = YNPullRefreshState.Normal
         self.activityView.stopAnimating()
-        
+        self.removeFromSuperview()
     }
     
     //MARK: 刷新失败
@@ -130,6 +130,7 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
     
         self.state = YNPullRefreshState.Normal
         self.activityView.stopAnimating()
+        self.removeFromSuperview()
     }
     
     //MARK: UIScrollViewDelegate
@@ -206,6 +207,11 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
                     self.activityView.hidden = true
                     
                 } else if contentOffset.y >= -kSelfHeight {
+                    
+                    if self.superview == nil {
+                        
+                        scrollView.addSubview(self)
+                    }
                     
                     //开始画圆
                     self.state = YNPullRefreshState.Pulling

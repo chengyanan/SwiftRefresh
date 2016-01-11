@@ -90,7 +90,7 @@ extension UIScrollView: YNRefreshHeaderViewDelegate, YNRefreshFooterViewDelegate
         
         let headerRefreshView = YNRefreshHeaderView(frame: CGRectMake(0, yOrigin, self.bounds.size.width, kRefreshViewHeight))
         headerRefreshView.delegate = self
-        self.addSubview(headerRefreshView)
+//        self.addSubview(headerRefreshView)
         
         headerRefreshView.refreshActionHandler = actionHandler
         
