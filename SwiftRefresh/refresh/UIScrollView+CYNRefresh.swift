@@ -82,7 +82,7 @@ extension UIScrollView {
 
     }
     
-    weak var footerrefreshView: YNRefreshFooterView? {
+    weak var footerRefreshView: YNRefreshFooterView? {
     
         get {
             
@@ -114,9 +114,9 @@ extension UIScrollView {
     
         footerRefreshView.refreshActionHandler = actionHandler
         addSubview(footerRefreshView)
-        self.footerrefreshView = footerRefreshView
+        self.footerRefreshView = footerRefreshView
         
-        footerrefreshView?.observing = true
+        footerRefreshView.observing = true
         
     }
     
@@ -128,7 +128,7 @@ extension UIScrollView {
     
     func stopFooterRefresh() {
     
-        self.footerrefreshView?.state = YNPullRefreshState.Normal
+        self.footerRefreshView?.state = YNPullRefreshState.Normal
     }
     
     func stopRefresh() {
@@ -137,6 +137,49 @@ extension UIScrollView {
         stopFooterRefresh()
     }
 
+    func addHeaderRefresh() {
+        
+        self.headerRefreshView?.state = YNPullRefreshState.Normal
+        self.headerRefreshView?.observing = true
+        
+        addSubview(self.headerRefreshView!)
+    }
+    
+    func removeHeaderRefresh() {
+    
+        self.headerRefreshView?.state = YNPullRefreshState.Normal
+        self.headerRefreshView?.observing = false
+        
+        self.headerRefreshView?.removeFromSuperview()
+    }
+    
+    func addFooterRefresh() {
+    
+        self.footerRefreshView?.state = YNPullRefreshState.Normal
+        self.footerRefreshView?.observing = true
+        
+        addSubview(self.footerRefreshView!)
+    }
+    
+    func removeFooterRefresh() {
+    
+        self.footerRefreshView?.state = YNPullRefreshState.Normal
+        self.footerRefreshView?.observing = false
+        
+        self.footerRefreshView?.removeFromSuperview()
+    }
+    
+    func addRefresh() {
+    
+        addHeaderRefresh()
+        addFooterRefresh()
+    }
+    
+    func removeRefresh() {
+    
+        removeHeaderRefresh()
+        removeFooterRefresh()
+    }
     
     
 }
