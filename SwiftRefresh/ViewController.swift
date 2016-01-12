@@ -91,7 +91,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tableView.removeRefresh()
     }
     
-    
+    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        
+    }
     
 }
 
