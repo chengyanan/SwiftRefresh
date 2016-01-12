@@ -61,8 +61,6 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
     }
     
     //MARK: property private
-    //用来避免先松手 后达到loading状态
-    private var isSetContentInset = true
     private var currentY: CGFloat?
     private var newAngle: CGFloat? {
     
@@ -172,28 +170,8 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
                 
                     setScrollViewContentInset()
                     
-                    self.isSetContentInset = true
-                } else {
-                
-                    self.isSetContentInset = false
-                    
                 }
                 
-            } else if let gestureState = scrollView()?.panGestureRecognizer.state where gestureState == .Cancelled {
-            
-                
-                if self.state == .Loading {
-                    
-                    setScrollViewContentInset()
-                }
-                
-            } else if let gestureState = scrollView()?.panGestureRecognizer.state where gestureState == .Failed {
-            
-                
-                if self.state == .Loading {
-                    
-                    setScrollViewContentInset()
-                }
                 
             }
             
@@ -289,19 +267,24 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
         } else {
         
             
-            if !activityView.hidden {
-            
-                //检查contentInset是否设置，如果没设置 就设置一下
-                if scrollView.contentInset.top <= 0 {
-                    
-                    if !isSetContentInset {
-                    
-                        self.setScrollViewContentInset()
-                    }
+            if contentOffset.y == 0 {
                 
-                    
-                }
+                self.state = YNPullRefreshState.Normal
             }
+            
+//            if !activityView.hidden {
+//            
+//                //检查contentInset是否设置，如果没设置 就设置一下
+//                if scrollView.contentInset.top <= 0 {
+//                    
+//                    if !isSetContentInset {
+//                    
+//                        self.setScrollViewContentInset()
+//                    }
+//                
+//                    
+//                }
+//            }
             
         }
 
