@@ -139,10 +139,10 @@ extension UIScrollView {
 
     func addHeaderRefresh() {
         
+        addSubview(self.headerRefreshView!)
         self.headerRefreshView?.state = YNPullRefreshState.Normal
         self.headerRefreshView?.observing = true
         
-        addSubview(self.headerRefreshView!)
     }
     
     func removeHeaderRefresh() {
@@ -155,10 +155,10 @@ extension UIScrollView {
     
     func addFooterRefresh() {
     
+        addSubview(self.footerRefreshView!)
         self.footerRefreshView?.state = YNPullRefreshState.Normal
         self.footerRefreshView?.observing = true
-        
-        addSubview(self.footerRefreshView!)
+    
     }
     
     func removeFooterRefresh() {

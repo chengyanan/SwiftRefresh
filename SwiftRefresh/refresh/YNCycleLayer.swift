@@ -11,7 +11,7 @@ import UIKit
 let kScreenWidthRefresh = UIScreen.mainScreen().bounds.size.width
 let kScreenHeightRefresh = UIScreen.mainScreen().bounds.size.height
 
-let kSelfHeight: CGFloat = 44//高度
+let kSelfHeight: CGFloat = 60//高度
 let kOffsetHeight: CGFloat = 22//整个view还没出来的高度
 let kRadiusOfCycle: CGFloat = kOffsetHeight*0.5//半径
 let kCycleCenterX: CGFloat = kScreenWidthRefresh*0.5//圆心X
