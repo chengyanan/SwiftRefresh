@@ -13,20 +13,16 @@ enum YNPullRefreshState {
     case Pulling, Normal, Loading
 }
 
-protocol YNRefreshHeaderViewDelegate {
-
-    func refreshHeaderView(headerView: YNRefreshHeaderView, removerMyObserve: Bool)
-    func resetScrollViewContentInset()
+struct KeyPaths {
+    
+    static let ContentOffset = "contentOffset"
+    static let PanGestureRecognizerState = "panGestureRecognizer.state"
+    
 }
 
 class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
 
-    //MARK: property public
-    var scrollViewOriginalDelegate:YNRefreshFooterView?
-    
-    let observerKeyPath = "contentOffset"
     var refreshActionHandler: (()->Void)?
-    var delegate: YNRefreshHeaderViewDelegate?
     var state: YNPullRefreshState? {
     
         didSet {
@@ -36,22 +32,23 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
                 switch state! {
                     
                 case YNPullRefreshState.Pulling:
+                    
                     self.cycleLayer.hidden = false
                     self.activityView.hidden = true
+                    
                     break
                 case .Loading:
+                    
                     self.cycleLayer.hidden = true
                     self.activityView.hidden = false
                     self.activityView.startAnimating()
-                    
-//                    self.refreshActionHandler!()
-//
-                    self.delegate?.refreshHeaderView(self, removerMyObserve: true)
+                
                     break
                 case .Normal:
                     
                     self.cycleLayer.hidden = true
-                    self.delegate?.resetScrollViewContentInset()
+                    self.activityView.stopAnimating()
+                    self.setOriginalScrollViewContentInset()
                     
                     break
                     
@@ -63,15 +60,15 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
     }
     
     //MARK: property private
-    var currentY: CGFloat?
-    var newAngle: CGFloat? {
+    private var currentY: CGFloat?
+    private var newAngle: CGFloat? {
     
         didSet {
         
             self.cycleLayer.newAngle = newAngle!
         }
     }
-    var startAngle: CGFloat?
+   private var startAngle: CGFloat?
     
     //MARK: property UI component
     let cycleLayer: YNCycleLayer = {
@@ -90,6 +87,31 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
         return tempView
         
     }()
+    
+    private func scrollView() -> UIScrollView? {
+        return superview as? UIScrollView
+    }
+    
+    var observing: Bool = false {
+    
+        didSet {
+        
+            guard let scrollView = scrollView() else {return}
+            
+            if observing {
+            
+                scrollView.yn_addObserver(self, forKeyPath: KeyPaths.ContentOffset)
+                scrollView.yn_addObserver(self, forKeyPath: KeyPaths.PanGestureRecognizerState)
+                
+            } else {
+            
+                scrollView.yn_removeObserver(self, forKeyPath: KeyPaths.ContentOffset)
+                scrollView.yn_removeObserver(self, forKeyPath: KeyPaths.PanGestureRecognizerState)
+            }
+            
+        }
+    }
+    
     
     //MARK: life cycle
     override init(frame: CGRect) {
@@ -117,55 +139,6 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: 刷新成功
-    func successStopRefresh() {
-    
-        self.state = YNPullRefreshState.Normal
-        self.activityView.stopAnimating()
-        self.removeFromSuperview()
-    }
-    
-    //MARK: 刷新失败
-    func failureStopRefresh() {
-    
-        self.state = YNPullRefreshState.Normal
-        self.activityView.stopAnimating()
-        self.removeFromSuperview()
-    }
-    
-    //MARK: UIScrollViewDelegate
-//    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-//        
-//        self.delegate?.refreshHeaderView(self, removerMyObserve: false)
-//        
-//    }
-//    
-//    
-//    
-    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        
-        if self.state == YNPullRefreshState.Loading {
-        
-            let offset = max(scrollView.contentOffset.y * -1, 0)
-            
-            var currentInsets = scrollView.contentInset
-            currentInsets.top = min(offset, kSelfHeight)
-            
-            UIView.animateWithDuration(0.3, delay: 0, options: [], animations: { () -> Void in
-                
-                scrollView.contentInset = currentInsets
-                
-                }, completion: { (isfinish) -> Void in
-                   
-                    self.refreshActionHandler!()
-                    scrollView.delegate = self.scrollViewOriginalDelegate
-                    
-            })
-            
-        }
-        
-    }
-    
     //MARK: observing
     override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         
@@ -175,7 +148,7 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
         
 //        print(object)
         
-        if keyPath == self.observerKeyPath {
+        if keyPath == KeyPaths.ContentOffset {
             
             let changeValue = change!["new"] as? NSValue
             let newPoint = changeValue?.CGPointValue()
@@ -187,6 +160,49 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
             }
             
             
+        } else if keyPath == KeyPaths.PanGestureRecognizerState {
+        
+            if let gestureState = scrollView()?.panGestureRecognizer.state where gestureState == .Ended {
+            
+                setScrollViewContentInset()
+            }
+            
+        }
+        
+        
+        
+    }
+    
+    func setScrollViewContentInset() {
+    
+        let offset = max(scrollView()!.contentOffset.y * -1, 0)
+        
+        var currentInsets = scrollView()!.contentInset
+        currentInsets.top = min(offset, kSelfHeight)
+        
+        UIView.animateWithDuration(0.3, delay: 0, options: [], animations: { () -> Void in
+            
+            self.scrollView()!.contentInset = currentInsets
+            
+            }, completion: { (isfinish) -> Void in
+                
+                self.refreshActionHandler!()
+                
+        })
+    }
+    
+    func setOriginalScrollViewContentInset() {
+    
+        var currentInsets = scrollView()!.contentInset
+        currentInsets.top = 0
+        
+        UIView.animateWithDuration(0.3, delay: 0, options: [UIViewAnimationOptions.AllowUserInteraction, .BeginFromCurrentState], animations: { () -> Void in
+            
+            self.scrollView()!.contentInset = currentInsets
+            
+            }) { (isfinish) -> Void in
+                
+                
         }
     }
     
@@ -208,11 +224,6 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
                     
                 } else if contentOffset.y >= -kSelfHeight {
                     
-                    if self.superview == nil {
-                        
-                        scrollView.addSubview(self)
-                    }
-                    
                     //开始画圆
                     self.state = YNPullRefreshState.Pulling
                     
@@ -232,25 +243,8 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
                 
                 
                 //contentInset的设置放在scrollViewWillEndDragging方法中 才能平缓过渡 不会有跳跃
-                
-                self.scrollViewOriginalDelegate = scrollView.delegate as? YNRefreshFooterView
-                scrollView.delegate = self
+        
                 self.state = YNPullRefreshState.Loading
-                
-                
-//                let offset = max(contentOffset.y * -1, 0)
-//                
-//                var currentInsets = scrollView.contentInset
-//                currentInsets.top = min(offset, kSelfHeight)
-//                
-//                UIView.animateWithDuration(0.3, delay: 0, options: [], animations: { () -> Void in
-//                    
-//                    scrollView.contentInset = currentInsets
-//                    
-//                    }, completion: { (isfinish) -> Void in
-//                        
-//                        
-//                })
                 
                 
             }
@@ -262,5 +256,25 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
     
     
     
+    
+    //    //MARK: 刷新成功
+    //    func successStopRefresh() {
+    //
+    //        self.state = YNPullRefreshState.Normal
+    //        self.activityView.stopAnimating()
+    //        self.removeFromSuperview()
+    //
+    //        self.observing = false
+    //    }
+    //
+    //    //MARK: 刷新失败
+    //    func failureStopRefresh() {
+    //
+    //        self.state = YNPullRefreshState.Normal
+    //        self.activityView.stopAnimating()
+    //        self.removeFromSuperview()
+    //        
+    //        self.observing = false
+    //    }
     
 }

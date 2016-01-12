@@ -11,27 +11,72 @@ import UIKit
 
 let kRefreshViewHeight = kSelfHeight
 
-extension UIScrollView: YNRefreshHeaderViewDelegate, YNRefreshFooterViewDelegate {
+extension UIScrollView {
 
-    private struct associatedKeys {
+    private struct yn_associatedKeys {
     
         static var headerRefreshView = "headerRefreshView"
         static var footerrefreshView = "footerrefreshView"
-        static var showRefresh = "showRefresh"
+        static var observersArray = "observers"
+    }
+    
+    private var yn_observers: [[String: NSObject]] {
+    
+        get {
+        
+            if let observers = objc_getAssociatedObject(self, &yn_associatedKeys.observersArray) as? [[String: NSObject]] {
+            
+                return observers
+            } else {
+            
+                let  observers = [[String : NSObject]]()
+                self.yn_observers = observers
+                return observers
+            }
+            
+        }
+        
+        set {
+        
+            objc_setAssociatedObject(self, &yn_associatedKeys.observersArray, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            
+        }
+    }
+    
+    public func yn_addObserver(observer: NSObject, forKeyPath keyPath: String) {
+    
+        let observerInfo = [keyPath: observer]
+        
+        if yn_observers.indexOf({ $0 == observerInfo}) == nil {
+        
+            yn_observers.append(observerInfo)
+            
+            addObserver(observer, forKeyPath: keyPath, options: NSKeyValueObservingOptions.New, context: nil)
+        }
+    }
+    public func yn_removeObserver(observer: NSObject, forKeyPath keyPath: String) {
+    
+        let observerInfo = [keyPath: observer]
+        
+        if let index = yn_observers.indexOf({ $0 == observerInfo}) {
+        
+            yn_observers.removeAtIndex(index)
+            
+            removeObserver(observer, forKeyPath: keyPath)
+        }
     }
     
    weak var headerRefreshView: YNRefreshHeaderView? {
     
         get {
         
-            return objc_getAssociatedObject(self, &associatedKeys.headerRefreshView) as? YNRefreshHeaderView
+            return objc_getAssociatedObject(self, &yn_associatedKeys.headerRefreshView) as? YNRefreshHeaderView
         }
         
         set {
-        
-//            self.willChangeValueForKey("YNRefreshHeaderView")
-            objc_setAssociatedObject(self, &associatedKeys.headerRefreshView, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-//            self.didChangeValueForKey("YNRefreshHeaderView")
+
+            objc_setAssociatedObject(self, &yn_associatedKeys.headerRefreshView, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+
         }
         
 
@@ -41,117 +86,57 @@ extension UIScrollView: YNRefreshHeaderViewDelegate, YNRefreshFooterViewDelegate
     
         get {
             
-            return objc_getAssociatedObject(self, &associatedKeys.footerrefreshView) as? YNRefreshFooterView
+            return objc_getAssociatedObject(self, &yn_associatedKeys.footerrefreshView) as? YNRefreshFooterView
         }
         
         set {
             
-            objc_setAssociatedObject(self, &associatedKeys.footerrefreshView, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &yn_associatedKeys.footerrefreshView, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
 
         }
     }
-    
-    var showRefresh: Bool? {
-    
-        get {
-        
-            return objc_getAssociatedObject(self, &associatedKeys.showRefresh) as? Bool
-        }
-        
-        set {
-        
-            objc_setAssociatedObject(self, &associatedKeys.showRefresh, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            
-            if !showRefresh! {
-            //不显示
-                
-                self.removeObserver(self.headerRefreshView!, forKeyPath: self.headerRefreshView!.observerKeyPath)
-                
-            } else {
-            
-                //显示
-                
-                self.addObserver(self.headerRefreshView!, forKeyPath: self.headerRefreshView!.observerKeyPath, options: NSKeyValueObservingOptions.New, context: nil)
-                
-                
-            }
-            
-            
-            
-        }
-        
-        
-    }
-    
     
     func addHeaderRefreshWithActionHandler(actionHandler: ()->Void) {
     
         let yOrigin = -kRefreshViewHeight
         
         let headerRefreshView = YNRefreshHeaderView(frame: CGRectMake(0, yOrigin, self.bounds.size.width, kRefreshViewHeight))
-        headerRefreshView.delegate = self
-//        self.addSubview(headerRefreshView)
-        
         headerRefreshView.refreshActionHandler = actionHandler
-        
+        addSubview(headerRefreshView)
         self.headerRefreshView = headerRefreshView
         
-        
-//        self.delegate = self.headerRefreshView
-        
-        self.showRefresh = true
-        
+        headerRefreshView.observing = true
     }
     
     func addFooterRefreshWithActionHandler(actionHandler: ()->Void) {
         
         let footerRefreshView = YNRefreshFooterView(frame: CGRectZero)
-        
-        footerRefreshView.delegate = self
+    
         footerRefreshView.refreshActionHandler = actionHandler
-        
+        addSubview(footerRefreshView)
         self.footerrefreshView = footerRefreshView
         
-        self.delegate = self.footerrefreshView
+        footerrefreshView?.observing = true
         
     }
     
-    //MARK:YNRefreshHeaderViewDelegate 
-    func refreshHeaderView(headerView: YNRefreshHeaderView, removerMyObserve: Bool) {
-        
-//        self.showRefresh = !removerMyObserve
+    func stopHeaderRefresh() {
+    
+        self.headerRefreshView?.state = YNPullRefreshState.Normal
+
     }
     
-    func resetScrollViewContentInset() {
-        
-        var currentInsets = self.contentInset
-        currentInsets.top = 0
-        
-        UIView.animateWithDuration(0.3, delay: 0, options: [UIViewAnimationOptions.AllowUserInteraction, .BeginFromCurrentState], animations: { () -> Void in
-            
-                self.contentInset = currentInsets
-            
-            }) { (isfinish) -> Void in
-                
-                
-        }
-        
+    func stopFooterRefresh() {
+    
+        self.footerrefreshView?.state = YNPullRefreshState.Normal
     }
     
-    //MARK: YNRefreshFooterViewDelegate
-    func resetScrollViewBottomContentInset() {
+    func stopRefresh() {
         
-        var currentInsets = self.contentInset
-        currentInsets.bottom = 0
-        
-        UIView.animateWithDuration(0.3, delay: 0, options: [UIViewAnimationOptions.AllowUserInteraction, .BeginFromCurrentState], animations: { () -> Void in
-            
-            self.contentInset = currentInsets
-            
-            }) { (isfinish) -> Void in
-                
-                
-        }
+        stopHeaderRefresh()
+        stopFooterRefresh()
     }
+
+    
     
 }

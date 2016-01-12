@@ -26,27 +26,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tableView.delegate = self
         
         self.view.addSubview(tableView)
-        
+//        
         self.tableView.addHeaderRefreshWithActionHandler { () -> Void in
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(5 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
                 
                 
-                self.tableView.headerRefreshView?.successStopRefresh()
+                self.tableView.stopHeaderRefresh()
                 
             }
             
         }
-        
-        
+//
+//        
         self.tableView.addFooterRefreshWithActionHandler { () -> Void in
             
             
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(5 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
                 
-                
-                self.tableView.footerrefreshView?.successStopRefresh()
+                self.tableView.stopFooterRefresh()
                 
             }
         }
@@ -59,6 +58,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 //        
 //        return 50
 //    }
+    
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return 50
@@ -86,7 +87,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
 
-   
+//    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//        
+//        let state = scrollView.panGestureRecognizer.state
+//        
+//        print("scrollViewWillEndDragging",state)
+//    }
+//    
+//    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+//        
+//        let state = scrollView.panGestureRecognizer.state
+//        print("scrollViewDidEndDragging", scrollView.panGestureRecognizer.state)
+//    }
     
 }
 
