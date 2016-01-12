@@ -59,7 +59,7 @@ class YNRefreshFooterView: UIView {
                     
                 case YNPullRefreshState.Pulling:
                     
-                    self.activityView.hidden = true
+                    self.activityView.stopAnimating()
                     
                     break
                 case .Loading:
@@ -70,7 +70,6 @@ class YNRefreshFooterView: UIView {
                 case .Normal:
                     
                     self.activityView.stopAnimating()
-                    self.setOriginalScrollViewContentInset()
                     
                     break
                     
@@ -185,6 +184,8 @@ class YNRefreshFooterView: UIView {
 
     func setOriginalScrollViewContentInset() {
         
+        self.state = YNPullRefreshState.Pulling
+        
         var currentInsets = scrollView()!.contentInset
         currentInsets.bottom = 0
         
@@ -194,7 +195,7 @@ class YNRefreshFooterView: UIView {
             
             }) { (isfinish) -> Void in
                 
-                
+                self.state = YNPullRefreshState.Normal
         }
     }
     

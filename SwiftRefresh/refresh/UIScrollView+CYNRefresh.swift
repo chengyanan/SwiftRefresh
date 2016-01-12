@@ -128,7 +128,7 @@ extension UIScrollView {
     
     func stopFooterRefresh() {
     
-        self.footerRefreshView?.state = YNPullRefreshState.Normal
+        self.footerRefreshView?.setOriginalScrollViewContentInset()
     }
     
     func stopRefresh() {

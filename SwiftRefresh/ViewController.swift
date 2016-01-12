@@ -37,8 +37,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
             
         }
-//
-//        
+       
         self.tableView.addFooterRefreshWithActionHandler { () -> Void in
             
             
@@ -53,13 +52,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
    //MARK: tableView datasource
-    
-//    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        
-//        return 50
-//    }
-    
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return 50
@@ -87,18 +79,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
 
-//    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-//        
-//        let state = scrollView.panGestureRecognizer.state
-//        
-//        print("scrollViewWillEndDragging",state)
-//    }
-//    
-//    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        
-//        let state = scrollView.panGestureRecognizer.state
-//        print("scrollViewDidEndDragging", scrollView.panGestureRecognizer.state)
-//    }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.tableView.addRefresh()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.tableView.removeRefresh()
+    }
+    
+    
     
 }
 
