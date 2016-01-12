@@ -164,7 +164,11 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
         
             if let gestureState = scrollView()?.panGestureRecognizer.state where gestureState == .Ended {
             
-                setScrollViewContentInset()
+                if self.state == .Loading {
+                
+                    setScrollViewContentInset()
+                }
+                
             }
             
         }
