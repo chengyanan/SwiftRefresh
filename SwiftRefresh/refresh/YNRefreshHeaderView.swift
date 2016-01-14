@@ -202,20 +202,26 @@ class YNRefreshHeaderView: UIView, UIScrollViewDelegate {
     
     func setOriginalScrollViewContentInset() {
         
-        var currentInsets = scrollView()!.contentInset
+        if let _ = scrollView() {
         
-        if currentInsets.top != 0 {
-        
-            currentInsets.top = 0
             
-            UIView.animateWithDuration(0.3, delay: 0, options: [UIViewAnimationOptions.AllowUserInteraction, .BeginFromCurrentState], animations: { () -> Void in
+            var currentInsets = scrollView()!.contentInset
+            
+            if currentInsets.top != 0 {
                 
-                self.scrollView()!.contentInset = currentInsets
+                currentInsets.top = 0
                 
-                }) { (isfinish) -> Void in
+                UIView.animateWithDuration(0.3, delay: 0, options: [UIViewAnimationOptions.AllowUserInteraction, .BeginFromCurrentState], animations: { () -> Void in
                     
+                    self.scrollView()!.contentInset = currentInsets
                     
+                    }) { (isfinish) -> Void in
+                        
+                        
+                }
             }
+            
+            
         }
        
 

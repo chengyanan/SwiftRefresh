@@ -184,19 +184,25 @@ class YNRefreshFooterView: UIView {
 
     func setOriginalScrollViewContentInset() {
         
-        self.state = YNPullRefreshState.Pulling
+        if let _ = scrollView() {
         
-        var currentInsets = scrollView()!.contentInset
-        currentInsets.bottom = 0
-        
-        UIView.animateWithDuration(0.3, delay: 0, options: [UIViewAnimationOptions.AllowUserInteraction, .BeginFromCurrentState], animations: { () -> Void in
+            self.state = YNPullRefreshState.Pulling
             
-            self.scrollView()!.contentInset = currentInsets
+            var currentInsets = scrollView()!.contentInset
+            currentInsets.bottom = 0
             
-            }) { (isfinish) -> Void in
+            UIView.animateWithDuration(0.3, delay: 0, options: [UIViewAnimationOptions.AllowUserInteraction, .BeginFromCurrentState], animations: { () -> Void in
                 
-                self.state = YNPullRefreshState.Normal
+                self.scrollView()!.contentInset = currentInsets
+                
+                }) { (isfinish) -> Void in
+                    
+                    self.state = YNPullRefreshState.Normal
+            }
+            
         }
+        
+        
     }
     
     
