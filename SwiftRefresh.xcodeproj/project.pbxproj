@@ -19,6 +19,7 @@
 		40B0FA871C3F56A3002C8AA2 /* YNCycleLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B0FA861C3F56A3002C8AA2 /* YNCycleLayer.swift */; };
 		40B0FA891C3F600F002C8AA2 /* YNRefreshHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B0FA881C3F600F002C8AA2 /* YNRefreshHeaderView.swift */; };
 		40B0FA8B1C3F7B60002C8AA2 /* UIScrollView+CYNRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B0FA8A1C3F7B60002C8AA2 /* UIScrollView+CYNRefresh.swift */; };
+		40BAE2A51C7D74E1009DF09F /* animate1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 40BAE2A41C7D74E1009DF09F /* animate1.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		40B0FA861C3F56A3002C8AA2 /* YNCycleLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNCycleLayer.swift; sourceTree = "<group>"; };
 		40B0FA881C3F600F002C8AA2 /* YNRefreshHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YNRefreshHeaderView.swift; sourceTree = "<group>"; };
 		40B0FA8A1C3F7B60002C8AA2 /* UIScrollView+CYNRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+CYNRefresh.swift"; sourceTree = "<group>"; };
+		40BAE2A41C7D74E1009DF09F /* animate1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = animate1.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				40B0FA601C3F534C002C8AA2 /* LaunchScreen.storyboard */,
 				40B0FA631C3F534C002C8AA2 /* Info.plist */,
 				40A396421C424DF5001F5037 /* animate.gif */,
+				40BAE2A41C7D74E1009DF09F /* animate1.gif */,
 			);
 			path = SwiftRefresh;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				40B0FA5F1C3F534C002C8AA2 /* Assets.xcassets in Resources */,
 				40A396431C424DF5001F5037 /* animate.gif in Resources */,
 				40B0FA5D1C3F534C002C8AA2 /* Main.storyboard in Resources */,
+				40BAE2A51C7D74E1009DF09F /* animate1.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
